@@ -1,5 +1,6 @@
 import numpy as np
 
+#uses output from modified_ordinal_sequence
 def fine_grained_PE(sequence_data,data_std,alpha):
     #given data_std and difference series, alpha determines how many new symbols are gotten
 
