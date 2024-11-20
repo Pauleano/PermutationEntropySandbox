@@ -1,4 +1,5 @@
 import numpy as np
+#uses output from modified_ordinal_sequence
 
 def amplitude_aware_distr(data,weighting_koefficient):
     #weighting_coefficient determines weighting between absolute values and distance of following values
