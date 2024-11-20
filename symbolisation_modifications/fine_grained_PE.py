@@ -1,3 +1,5 @@
+import numpy as np
+
 def fine_grained_PE(sequence_data,data_std,alpha):
     #given data_std and difference series, alpha determines how many new symbols are gotten
 
@@ -17,6 +19,3 @@ def fine_grained_PE(sequence_data,data_std,alpha):
     symbols,symbol_counts=np.unique(symbol_sequence,return_counts=True,axis=1)
                 
     return symbols,symbol_counts
-
-out2_1,out2_2=fine_grained_PE(a,np.std(in1),1)
-print(out2_1)
