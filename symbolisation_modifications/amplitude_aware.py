@@ -52,7 +52,7 @@ def modified_ordinal_sequence(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True
     return symbols2
 
 
-a=ordinal_sequence([1,2,3,4,0],dx=3)
+a=modified_ordinal_sequence([1,2,3,4,0],dx=3)
 print(a,a.shape)
 
 def amplitude_aware_distr(data,weighting_koefficient):
