@@ -1,5 +1,6 @@
 import numpy as np
 
+#uses output from modified_ordinal_sequence
 def coded_PE(seq_data):
     #get symbols from input
     symbolsequence=seq_data[0:int(seq_data.shape[0]*0.5),:]
