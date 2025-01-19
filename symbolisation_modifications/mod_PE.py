@@ -26,17 +26,19 @@ def open_pos(array):
     return open_pos    
 
 def missing_pos(array):
-    #the array "markers" in "max_symbols()" always in such a way that
+    #does the same thing as open_pos() only slower
     return (array.shape[0]-np.sum(array))
 
-def read_symbol(array): 
+def read_symbol(array):
+    #=np.sum(np.sign(array)) gives same result but slower
     counter=0
     for i in range(array.shape[0]):
          if (array[i]!=0):
             counter+=1
-    return counter#=np.sum(np.sign(array))... kürzerer code aber langsamer
-
+    return counter
+    
 def max_symbols(emb_dim):
+    #doesnt work with emb_dim=2, but otherwise fine
     symb_count=0
     markers=np.zeros(emb_dim)+1
     while(markers[0]!=emb_dim):
