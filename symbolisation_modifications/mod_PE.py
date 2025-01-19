@@ -38,7 +38,6 @@ def read_symbol(array):
     return counter
     
 def max_symbols(emb_dim):
-    #doesnt work with emb_dim=2, but otherwise fine
     symb_count=0
     markers=np.zeros(emb_dim)+1
     while(markers[0]!=emb_dim):
@@ -47,6 +46,8 @@ def max_symbols(emb_dim):
             print(markers)
         for i in range(emb_dim-1,-1,-1):
             if(markers[i]==emb_dim-1-i+1):
+                if i==0:#prevent markers[0]=0
+                    break
                 markers[i]=0
                 markers[i-1]+=1
                 if open_pos(markers)==0:
@@ -62,8 +63,10 @@ def max_symbols(emb_dim):
                 open=int(open_pos(markers))
                 markers[emb_dim-open:]=1
                 break
-    
-    return symb_count+1
+    if emb_dim==2:
+        return symb_count #all valid symbols already have been counted
+        
+    return symb_count+1 #with emb_dim>=3 while loop terminated before counting symbol (emb__dim,0,0,0,...)
 
 
 x=np.zeros(5)
