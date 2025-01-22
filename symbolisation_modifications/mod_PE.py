@@ -3,7 +3,7 @@ import math as m
 import time as t
 
 
-
+#helperfunction
 #given array outputs number of 'open' positions in context of max_symbols-function of modified_PE-approach
 def open_pos(array):
     
@@ -26,7 +26,7 @@ def open_pos(array):
     return open_pos    
 
 def missing_pos(array):
-    #does the same thing as open_pos() only slower
+    #does the same thing as open_pos() but slower
     return (array.shape[0]-np.sum(array))
 
 def read_symbol(array):
