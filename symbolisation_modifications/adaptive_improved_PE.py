@@ -1,6 +1,87 @@
 import numpy as np
 import math as m
 
+def partitions_copied(data, dx=3, dy=1, taux=1, tauy=1, overlapping=True, tie_precision=None):
+    """
+    Copied from ordpy package function ordinal_sequence()
+    
+    Parameters
+    ----------
+    data : array 
+           Array object in the format :math:`[x_{1}, x_{2}, x_{3}, \\ldots ,x_{n}]`
+           or  :math:`[[x_{11}, x_{12}, x_{13}, \\ldots, x_{1m}],
+           \\ldots, [x_{n1}, x_{n2}, x_{n3}, \\ldots, x_{nm}]]` 
+           (:math:`n \\times m`).
+    dx : int
+         Embedding dimension (horizontal axis) (default: 3).
+    dy : int
+         Embedding dimension (vertical axis); it must be 1 for time series 
+         (default: 1).
+    taux : int
+           Embedding delay (horizontal axis) (default: 1).
+    tauy : int
+           Embedding delay (vertical axis) (default: 1).
+    overlapping : boolean
+                  If `True`, **data** is partitioned into overlapping sliding 
+                  windows (default: `True`). If `False`, adjacent partitions are
+                  non-overlapping.
+    tie_precision : None, int
+                    If not `None`, **data** is rounded with `tie_precision`
+                    number of decimals (default: `None`).
+
+    Returns
+    -------
+     : array
+       Array containing the sequence of ordinal patterns.
+    """
+    
+    try:
+        ny, nx = np.shape(data)
+        data   = np.array(data)
+    except:
+        nx     = np.shape(data)[0]
+        ny     = 1
+        data   = np.array([data])
+
+    if tie_precision is not None: 
+        data = np.round(data, tie_precision)
+    
+    if ny==1: #time series
+        if overlapping == True:
+            partitions = np.apply_along_axis(func1d       = np.lib.stride_tricks.sliding_window_view, 
+                                             axis         = 1, 
+                                             arr          = data, 
+                                             window_shape = (dx+(dx-1)*(taux-1),)
+                                            )
+            partitions = partitions[::, ::, ::taux].reshape(-1, dx) 
+                                                                    
+        else: #non overlapping
+            partitions = np.concatenate(
+                [
+                    [np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))] 
+                    for j in range(ny-(dy-1)*tauy)
+                ]
+            )
+        
+    else: #image
+        if overlapping == True:
+            partitions        = np.lib.stride_tricks.sliding_window_view(x            = data, 
+                                                                         window_shape = (dy+(dy-1)*(tauy-1), dx+(dx-1)*(taux-1))
+                                                                        )
+            rows, columns, *_ = np.shape(partitions)
+            partitions        = partitions[::,::,::tauy,::taux].reshape(rows, columns, dx*dy)
+
+        else: #non overlapping
+            partitions = np.concatenate(
+                [
+                    [[np.concatenate(data[j:j+dy*tauy:tauy, i:i+dx*taux:taux]) for i in range(0, nx-(dx-1)*taux, dx+(dx-1)*(taux-1))]] 
+                    for j in range(0, ny-(dy-1)*tauy, dy+(dy-1)*(tauy-1))
+                ]
+            )            
+    return partitions
+
+
+
 def impr_symbols_without_abs(emb_window, quantisation_para, min_val, max_val):
     """
     Improved Permutation Entropy without using the absolute difference. Overly sensitive to negative differences
