@@ -6,10 +6,10 @@ def coded_permutations(seq_data):
     """
     Implements symbolization according to coded permutation entropy.
 
-    Input:
+    Paramteres:
     - seq_data (numpy.ndarray): A 2D NumPy array (nxm) where rows[0:(n/2)-1] correspond to data points and rows[n/2:n-1] corresponds to permutation at each instance 
                             
-    Output:
+    Returns:
     - symbols (numpy.ndarray): A 1D array of unique symbols found in the concatenated sequence of permutations and coded values.
     - symbol_counts (numpy.ndarray): A 1D array with counts of how many times each unique symbol appears in the concatenated sequence.
     """
