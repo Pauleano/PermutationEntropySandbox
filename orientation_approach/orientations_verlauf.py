@@ -68,7 +68,7 @@ def orientations_verlauf(data, emb_dim, emb_delay):
         # print(f"Symbol string: {''.join(symbol_str)}")
         
         # Append the generated symbol string to the words list
-        words.append(symbol_str)
+        words.append(''.join(symbol_str))
 
     # print(f"All generated symbols: {words}")
 
