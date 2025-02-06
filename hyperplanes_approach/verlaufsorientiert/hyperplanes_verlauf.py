@@ -36,7 +36,7 @@ def hyperplanes_verlauf(multivar_data, emb_dim, emb_delay):
     for i in range(multivar_data.shape[1] - emb_dim * emb_delay):
         
         # Extract relevant data slice (embedding window) from multivar_data.
-        relev_ausschnitt = multivar_data[:, i:i + emb_dim * emb_delay:emb_delay]
+        relev_ausschnitt = multivar_data[:, i:i + (emb_dim + 1) * emb_delay:emb_delay]
         
         # Create an empty matrix to store relevant differences between points
         relev_diff = np.zeros((multivar_data.shape[0], gaus(emb_dim) - emb_dim + 1))
