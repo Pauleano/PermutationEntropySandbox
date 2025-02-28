@@ -1,7 +1,7 @@
 import numpy as np
 import itertools as iter
 
-def orientations_all_sorted_combinations(multivar_data, emb_dim, emb_delay):
+def orientations_all_combinations(multivar_data, emb_dim, emb_delay):
     """
     This function computes the symbolic orientation for all combinations of embedded data points
     using determinant-based orientation analysis. Symbols are generated based on the sign of the 
