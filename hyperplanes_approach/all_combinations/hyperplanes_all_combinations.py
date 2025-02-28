@@ -1,7 +1,7 @@
 import numpy as np
 import itertools as iter
 
-def hyperplanes_all_sorted_combinations(multivar_data,emb_dim,emb_delay):
+def hyperplanes_all_combinations(multivar_data,emb_dim,emb_delay):
     #
     emb_dim+=1
     # einschränkung: max fensterlänge=10 (0,1,2,3,4,5,6,7,8,9)
